@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load index %}
+
+{% block title %}
+В итоге...
+{% endblock %}
+
+{% block content %}
+<h2 style="margin-bottom: 20px;">
+    Итоги предсказаний...
+</h2>
+<p>
+    В ходе предположений, мы выяснили, кто из экстрасенсов оказался прав, <br>
+    и подсчитали его процент верных догадок:
+</p>
+
+<table class="table table-bordered table-sm">
+
+    <thead class="table-light">
+        <tr>
+            {% for psy in dict_psy %}
+                <td> {{ psy.success }} </td>
+            {% endfor %}
+                <td> % совпадений </td>
+        </tr>
+        <tr>
+            {% for psy in dict_psy %}
+                <th scope="col">{{ psy.name }}</th>
+            {% endfor %}
+                <th scope="col">Ваше число</th>
+        </tr>
+    </thead>
+
+
+    <tbody>
+        {% for i in user_list %}
+            {% with forloop.counter0 as count %}
+                <tr>
+                    {% for psy in dict_psy %}
+                        <td>{{ psy.guess|index:count }}</td>
+                    {% endfor %}
+                        <td>{{ i }}</td>
+                </tr>
+            {% endwith %}
+        {% endfor %}
+    </tbody>
+
+</table>
+
+<div class="col">
+    <a href="/testing">
+        <button>Цикл</button>
+    </a>
+</div>
+
+<div class="col">
+<a href="/">
+    <button>Начать тест заново</button>
+</a>
+</div>
+{% endblock %}
